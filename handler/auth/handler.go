@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"AppServer/service"
+	"ServerApp/service"
 	"github.com/gorilla/mux"
 )
 

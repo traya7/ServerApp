@@ -1,10 +1,10 @@
 package main
 
 import (
-	"AppServer/domain"
-	"AppServer/domain/account"
-	"AppServer/handler"
-	"AppServer/service"
+	"ServerApp/domain"
+	"ServerApp/domain/account"
+	"ServerApp/handler"
+	"ServerApp/service"
 	"log"
 	"net/http"
 

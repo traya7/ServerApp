@@ -1,4 +1,4 @@
-module AppServer
+module ServerApp
 
 go 1.22.0
 

@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"AppServer/handler/auth"
-	"AppServer/handler/wallet"
-	"AppServer/service"
+	"ServerApp/handler/auth"
+	"ServerApp/handler/wallet"
+	"ServerApp/service"
 	"net/http"
 
 	"github.com/gorilla/mux"

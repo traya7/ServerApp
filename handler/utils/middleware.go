@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"AppServer/types"
+	"ServerApp/types"
 	"errors"
 	"net/http"
 	"time"

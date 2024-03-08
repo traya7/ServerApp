@@ -1,8 +1,8 @@
 package service
 
 import (
-	"AppServer/domain/account"
-	"AppServer/types"
+	"ServerApp/domain/account"
+	"ServerApp/types"
 )
 
 type AuthService struct {

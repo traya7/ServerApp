@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"AppServer/handler/utils"
+	"ServerApp/handler/utils"
 	"net/http"
 )
 

@@ -1,6 +1,6 @@
 package account
 
-import "AppServer/domain"
+import "ServerApp/domain"
 
 type mongoRepo struct{}
 
