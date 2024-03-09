@@ -27,14 +27,11 @@ func Run(cfg Config) error {
 	log.Println("- DB connected!")
 
 	// init services
-	auth := service.NewAuthService(
-		account.NewMongoRepo(mongodb),
-	)
+	params := handler.Params{
+		Auth: service.NewAuthService(account.NewMongoRepo(mongodb)),
+	}
 
 	// init server
-	params := handler.Params{
-		Auth: auth,
-	}
 	mux := handler.NewRouter(params)
 
 	// add middleware
@@ -51,8 +48,8 @@ func Run(cfg Config) error {
 func main() {
 	cfg := Config{
 		Addr:   ":8080",
-		DbUri:  "mongodb://dbxadmin2:Aopj0R89Zp3J@203.161.44.242:27017/",
-		DbName: "gmetour",
+		DbUri:  "mongodb://myUserAdmin:hxadmin567%3F%3F@66.29.142.144:27017/",
+		DbName: "gmeapp",
 	}
 
 	if err := Run(cfg); err != nil {

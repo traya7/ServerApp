@@ -1,6 +1,7 @@
 package account
 
 type Repository interface {
-	GetAccountByUsername(string) (*Account, error)
-	GetAccountById(string) (*Account, error)
+	Store(acc Account) error
+	FindOneByUsername(string) (*Account, error)
+	FindOneByID(string) (*Account, error)
 }

@@ -3,6 +3,6 @@ package types
 type User struct {
 	ID       string
 	Username string
-	Balance  string
+	Balance  float64
 	Role     string
 }

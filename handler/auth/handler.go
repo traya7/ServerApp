@@ -5,32 +5,26 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var (
-	ErrInvalidPayload     = "Cannot handle the request."
-	ErrEmptyValue         = "All fields are required."
-	ErrInvalidCredentails = "Username or Password incorrect."
-	ErrInternalError      = "Server error, try again."
-	ErrUnauthorized       = "Unauthorized access."
-)
-
 type AuthHandler struct {
 	svc *service.AuthService
 }
 
-func New() *AuthHandler {
-	return &AuthHandler{}
+func New(s *service.AuthService) *AuthHandler {
+	return &AuthHandler{
+		svc: s,
+	}
 }
 
 func (h *AuthHandler) Route(m *mux.Router) {
 	// USER_HANDLERS
-	m.HandleFunc("POST /api/v1/auth/login", h.ClientLogin)
+	m.HandleFunc("/login", h.ClientLogin).Methods("POST")
 
 	// ADMIN_HANDLERS
-	m.HandleFunc("POST /api/v1/auth/u/login", h.AdminLogin)
-	m.HandleFunc("POST /api/v1/auth/u/create", h.UserCreate)
-	m.HandleFunc("POST /api/v1/auth/u/reset", h.UserReset)
+	m.HandleFunc("/u/login", h.AdminLogin).Methods("POST")
+	m.HandleFunc("/u/create", h.UserCreate).Methods("POST")
+	m.HandleFunc("/u/reset", h.UserReset).Methods("POST")
 
 	// USER+ADMIN
-	m.HandleFunc("POST /api/v1/auth/status", h.UserStatus)
-	m.HandleFunc("POST /api/v1/auth/resetpwd", h.UserResetPwd)
+	m.HandleFunc("/status", h.UserStatus).Methods("POST")
+	m.HandleFunc("/resetpwd", h.UserResetPwd).Methods("POST")
 }

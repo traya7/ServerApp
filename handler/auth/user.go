@@ -3,6 +3,7 @@ package auth
 import (
 	"ServerApp/handler/utils"
 	"encoding/json"
+	"log"
 	"net/http"
 )
 
@@ -24,14 +25,16 @@ func (h *AuthHandler) ClientLogin(w http.ResponseWriter, r *http.Request) {
 
 	res, err := h.svc.UserLogin(Payload.Username, Payload.Password, "USER")
 	if err != nil {
+		log.Println(err)
 		utils.SendErrorResponse(w, 401, ErrInvalidCredentails)
 		return
 	}
 	cookie, err := utils.NewCookie(res)
 	if err != nil {
+		log.Println(err)
 		utils.SendErrorResponse(w, 400, ErrInternalError)
 		return
 	}
 	http.SetCookie(w, cookie)
-	utils.SendJSONResponse(w, 200, nil)
+	utils.SendJSONResponse(w, 200, res)
 }

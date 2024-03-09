@@ -2,6 +2,7 @@ package handler
 
 import (
 	"ServerApp/handler/auth"
+	"ServerApp/handler/utils"
 	"ServerApp/handler/wallet"
 	"ServerApp/service"
 	"net/http"
@@ -19,8 +20,8 @@ func NewRouter(p Params) http.Handler {
 	auth.New(p.Auth).Route(m.PathPrefix("/v1/auth").Subrouter())
 	wallet.New().Route(m.PathPrefix("/v1/wallet").Subrouter())
 
-	m.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
-		w.Write([]byte("Opps, not found page."))
+	m.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		utils.SendErrorResponse(w, 404, "Opps, not found page.")
 	})
 	return m
 }
