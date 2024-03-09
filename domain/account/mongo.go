@@ -27,7 +27,13 @@ func (r *mongoRepo) Store(acc Account) error {
 }
 
 func (r *mongoRepo) FindOneByID(user_id string) (*Account, error) {
-	return nil, nil
+	filter := bson.D{{Key: "_id", Value: user_id}}
+	var result Account
+	err := r.col.FindOne(context.TODO(), filter).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
 }
 
 func (r *mongoRepo) FindOneByUsername(username string) (*Account, error) {
