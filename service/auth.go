@@ -75,8 +75,17 @@ func (s *AuthService) UserLogin(username, password, role string) (*types.User, e
 	}, nil
 }
 
-func (*AuthService) UserStatus(user_id string) (*types.User, error) {
-	return nil, nil
+func (s *AuthService) UserStatus(user_id string) (*types.User, error) {
+	acc, err := s.repo.FindOneByID(user_id)
+	if err != nil {
+		return nil, err
+	}
+	return &types.User{
+		ID:       acc.ID,
+		Username: acc.Username,
+		Balance:  acc.Balance,
+		Role:     acc.Role,
+	}, nil
 }
 
 func (*AuthService) UserResetPwd() {}
