@@ -19,13 +19,18 @@ func NewMongoRepo(db *domain.MongoDB) *mongoRepo {
 }
 
 func (r *mongoRepo) Store(acc Account) error {
-	_, err := r.col.InsertOne(context.TODO(), acc)
-	if err != nil {
+	if _, err := r.col.InsertOne(context.TODO(), acc); err != nil {
 		return err
 	}
 	return nil
 }
-
+func (r *mongoRepo) Update(acc Account) error {
+	filter := bson.D{{Key: "_id", Value: acc.ID}}
+	if _, err := r.col.UpdateOne(context.TODO(), filter, acc); err != nil {
+		return err
+	}
+	return nil
+}
 func (r *mongoRepo) FindOneByID(user_id string) (*Account, error) {
 	filter := bson.D{{Key: "_id", Value: user_id}}
 	var result Account

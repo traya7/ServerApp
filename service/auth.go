@@ -77,15 +77,36 @@ func (s *AuthService) UserLogin(username, password, role string) (*types.User, e
 
 func (s *AuthService) UserStatus(user_id string) (*types.User, error) {
 	acc, err := s.repo.FindOneByID(user_id)
-	if err != nil {
-		return nil, err
+	if err != nil || !acc.IsActive {
+		return nil, ErrUnauthorized
 	}
+
 	return &types.User{
 		ID:       acc.ID,
 		Username: acc.Username,
 		Balance:  acc.Balance,
 		Role:     acc.Role,
 	}, nil
+}
+func (s *AuthService) UpdateMyPwd(user_id, old_pwd, new_pwd string) error {
+	acc, err := s.repo.FindOneByID(user_id)
+	if err != nil || !acc.IsActive {
+		return ErrUnauthorized
+	}
+	err = bcrypt.CompareHashAndPassword([]byte(acc.Password), []byte(old_pwd))
+	if err != nil {
+		return errors.New("invalid password")
+	}
+
+	bytes, err := bcrypt.GenerateFromPassword([]byte(new_pwd), 14)
+	if err != nil {
+		return ErrInternalError
+	}
+	acc.Password = string(bytes)
+	if err := s.repo.Update(*acc); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (*AuthService) UserResetPwd() {}
