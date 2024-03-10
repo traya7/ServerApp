@@ -5,4 +5,5 @@ type User struct {
 	Username string
 	Balance  float64
 	Role     string
+	ImgUri   string
 }

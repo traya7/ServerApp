@@ -72,6 +72,7 @@ func (s *AuthService) UserLogin(username, password, role string) (*types.User, e
 		Username: acc.Username,
 		Balance:  acc.Balance,
 		Role:     acc.Role,
+		ImgUri:   acc.ImgUri,
 	}, nil
 }
 
