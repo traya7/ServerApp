@@ -87,8 +87,10 @@ func (s *AuthService) UserStatus(user_id string) (*types.User, error) {
 		Username: acc.Username,
 		Balance:  acc.Balance,
 		Role:     acc.Role,
+		ImgUri:   acc.ImgUri,
 	}, nil
 }
+
 func (s *AuthService) UpdateMyPwd(user_id, old_pwd, new_pwd string) error {
 	acc, err := s.repo.FindOneByID(user_id)
 	if err != nil || !acc.IsActive {
