@@ -24,9 +24,12 @@ func (r *mongoRepo) Store(acc Account) error {
 	}
 	return nil
 }
-func (r *mongoRepo) Update(acc Account) error {
+func (r *mongoRepo) UpdatePassword(acc Account) error {
 	filter := bson.D{{Key: "_id", Value: acc.ID}}
-	if _, err := r.col.UpdateOne(context.TODO(), filter, acc); err != nil {
+	update := bson.D{{Key: "$set", Value: bson.D{
+		{Key: "password", Value: acc.Password},
+	}}}
+	if _, err := r.col.UpdateOne(context.TODO(), filter, update); err != nil {
 		return err
 	}
 	return nil

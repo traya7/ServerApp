@@ -109,7 +109,7 @@ func (s *AuthService) UpdateMyPwd(user_id, old_pwd, new_pwd string) error {
 		return ErrInternalError
 	}
 	acc.Password = string(bytes)
-	if err := s.repo.Update(*acc); err != nil {
+	if err := s.repo.UpdatePassword(*acc); err != nil {
 		log.Println(err)
 		return ErrSavePwdToDb
 	}
