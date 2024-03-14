@@ -74,11 +74,11 @@ func (h *AuthHandler) UserResetPwd(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := h.svc.UpdateMyPwd(user.ID, rd.OldPwd, rd.NewPwd); err != nil {
-		utils.SendErrorResponse(w, 400, ErrInvalidCredentails)
+		utils.SendErrorResponse(w, 400, err.Error())
 		return
 	}
 
-	utils.SendJSONResponse(w, 200, nil)
+	utils.SendJSONResponse(w, 200, map[string]any{})
 }
 
 func (h *AuthHandler) UserResetClient(http.ResponseWriter, *http.Request) {}

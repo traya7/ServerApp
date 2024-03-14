@@ -11,6 +11,7 @@ var (
 	ErrInvalidCredentials = errors.New("invalid credentials")
 	ErrUnauthorized       = errors.New("unauthorized access")
 	ErrInternalError      = errors.New("internal error")
+	ErrSavePwdToDb        = errors.New("Cannot update password")
 )
 
 type AuthService struct {
@@ -107,7 +108,7 @@ func (s *AuthService) UpdateMyPwd(user_id, old_pwd, new_pwd string) error {
 	}
 	acc.Password = string(bytes)
 	if err := s.repo.Update(*acc); err != nil {
-		return err
+		return ErrSavePwdToDb
 	}
 	return nil
 }
